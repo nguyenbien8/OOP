@@ -20,8 +20,25 @@ public class CharGrid {
 	 * @return area for given char
 	 */
 	public int charArea(char ch) {
-		return 0;
-		// YOUR CODE HERE
+
+		int min_row = grid.length, max_row = -1;
+		int min_col = grid[0].length, max_cow = -1;
+
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid[i].length; j++){
+				if(grid[i][j] == ch){
+					if(i < min_row) min_row = i;
+					if(i > max_row) max_row = i;
+					if(j < min_col) min_col = j;
+					if(j > max_cow) max_cow = j;
+				}
+			}
+		}
+		if(min_row == grid.length || max_row == -1){
+			return 0;
+		}
+
+		return (max_row - min_row + 1) * (max_cow - min_col + 1);
 	}
 	
 	/**
@@ -29,8 +46,19 @@ public class CharGrid {
 	 * @return number of + in grid
 	 */
 	public int countPlus() {
+
+
 		return 0;
-		// YOUR CODE HERE
+	}
+
+	public static void main(String[] args) {
+		char[][] arr = {
+				{'a', 'a', 'b'},
+				{'a', 'c', 'c'},
+				{'a', 'a', 'b'}
+		};
+		CharGrid cg = new CharGrid(arr);
+		System.out.println(cg.charArea('a'));
 	}
 	
 }
