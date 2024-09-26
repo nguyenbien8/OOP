@@ -57,8 +57,17 @@ public class CharGrid {
 				{'a', 'c', 'c'},
 				{'a', 'a', 'b'}
 		};
+
+		char[][] arr2 = {
+				{'b', 'c', 'd'},
+				{'b', 'c', 'c'},
+				{'c', 'c', 'c'}
+		};
 		CharGrid cg = new CharGrid(arr);
+		CharGrid cg2 = new CharGrid(arr2);
+
 		System.out.println(cg.charArea('a'));
+		System.out.println(cg2.charArea('c'));
 	}
 	
 }
