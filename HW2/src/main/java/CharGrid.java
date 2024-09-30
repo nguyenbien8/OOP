@@ -22,7 +22,7 @@ public class CharGrid {
 	public int charArea(char ch) {
 
 		int min_row = grid.length, max_row = -1;
-		int min_col = grid[0].length, max_cow = -1;
+		int min_col = grid[0].length, max_col = -1;
 
 		for(int i = 0; i < grid.length; i++){
 			for(int j = 0; j < grid[i].length; j++){
@@ -30,7 +30,7 @@ public class CharGrid {
 					if(i < min_row) min_row = i;
 					if(i > max_row) max_row = i;
 					if(j < min_col) min_col = j;
-					if(j > max_cow) max_cow = j;
+					if(j > max_col) max_col = j;
 				}
 			}
 		}
@@ -38,36 +38,65 @@ public class CharGrid {
 			return 0;
 		}
 
-		return (max_row - min_row + 1) * (max_cow - min_col + 1);
+		return (max_row - min_row + 1) * (max_col - min_col + 1);
 	}
 	
 	/**
 	 * Returns the count of '+' figures in the grid (see handout).
 	 * @return number of + in grid
 	 */
+
+	private int branch_length(int i, int j, int di, int dj, char ch){
+		int length = 1;
+		int x = i + di;
+		int y = j + dj;
+		while(x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == ch){
+			length++;
+			x += di;
+			y += dj;
+		}
+		return length;
+	}
+
 	public int countPlus() {
+		int cnt = 0;
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid[i].length; j++){
+				char ch = grid[i][j];
 
+				int up = branch_length(i, j, -1, 0, ch);
+				int down = branch_length(i, j, 1, 0, ch);
+				int left = branch_length(i, j, 0, -1, ch);
+				int right = branch_length(i, j, 0, 1, ch);
 
-		return 0;
+				if(up >= 2 && down >= 2 && left >= 2 && right >= 2 && up == down && left == right){
+					cnt++;
+				}
+			}
+		}
+
+		return cnt;
 	}
 
 	public static void main(String[] args) {
-		char[][] arr = {
-				{'a', 'a', 'b'},
-				{'a', 'c', 'c'},
-				{'a', 'a', 'b'}
+		char[][] grid = {
+				{'p', ' ', 'p', ' ', 'p'},
+				{'p', 'p', 'x', 'p', 'p'},
+				{'p', 'x', 'x', 'x', 'p'},
+				{' ', 'p', 'x', 'p', ' '},
+				{' ', ' ', 'p', ' ', ' '}
 		};
+		CharGrid cg = new CharGrid(grid);
+		System.out.println(cg.countPlus());
 
-		char[][] arr2 = {
-				{'b', 'c', 'd'},
-				{'b', 'c', 'c'},
-				{'c', 'c', 'c'}
-		};
-		CharGrid cg = new CharGrid(arr);
-		CharGrid cg2 = new CharGrid(arr2);
-
-		System.out.println(cg.charArea('a'));
-		System.out.println(cg2.charArea('c'));
+//		char[][] grid = new char[][] {
+//				{'c', 'a', 'x'},
+//				{'b', ' ', 'b'},
+//				{' ', ' ', 'a'},
+//		};
+//
+//		CharGrid cg = new CharGrid(grid);
+//		System.out.println(cg.charArea('a'));
 	}
 	
 }

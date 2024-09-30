@@ -7,11 +7,8 @@ import java.util.Set;
 public class StringCode {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		String str1 = sc.next();
-		String str2 = sc.next();
-		System.out.println(stringIntersect(str1, str2, 3));
-		//System.out.println(maxRun(str));
-		//System.out.println(blowup(str));
+		String str = sc.next();
+		System.out.println(blowup(str));
 	}
 
 	/**
